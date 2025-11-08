@@ -3,6 +3,7 @@ import io.FileManager;
 import operations.GraphOperations;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
@@ -70,6 +71,8 @@ public class GraphApplication {
         }
     }
 
+
+
     private static void addVertex() {
         System.out.print("Введите букву вершины: ");
         String input = scanner.nextLine().trim().toUpperCase();
@@ -80,7 +83,7 @@ public class GraphApplication {
         }
 
         char label = input.charAt(0);
-        java.util.List<Character> connected = new ArrayList<>();
+        List<Character> connected = new ArrayList<>();
 
         System.out.println("Введите связи (Enter для выхода):");
         while (true) {
@@ -109,6 +112,8 @@ public class GraphApplication {
             System.out.println("Ошибка: " + e.getMessage() + "\n");
         }
     }
+
+
 
     private static void deleteVertex() {
         System.out.print("Введите букву вершины: ");

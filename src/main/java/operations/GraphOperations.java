@@ -157,7 +157,7 @@ public class GraphOperations {
                         currentEdge = currentEdge.getNextEdge();
                     }
                 } else {
-                    previousEdge = currentEdge;
+                    previousEdge = currentEdge;    //оставляем ребро, если не указ на уд-ю вершину
                     currentEdge = currentEdge.getNextEdge();
                 }
             }
@@ -282,4 +282,5 @@ public class GraphOperations {
         }
         System.out.println();
     }
+
 }
