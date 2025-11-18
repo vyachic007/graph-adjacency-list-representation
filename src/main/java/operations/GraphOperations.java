@@ -22,6 +22,15 @@ public class GraphOperations {
     }
 
 
+    private static GraphNode validateAndGetVertex(GraphDescriptor graph, char label) {
+        GraphNode vertex = findVertexByLabel(graph, label);
+        if (vertex == null) {
+            throw new IllegalArgumentException("Вершина " + label + " не найдена");
+        }
+        return vertex;
+    }
+
+
     private static EdgeNode buildEdgeList(List<GraphNode> targetNodes) {
         if (targetNodes == null || targetNodes.isEmpty()) {
             return null;
@@ -128,6 +137,23 @@ public class GraphOperations {
         }
 
         return null;
+    }
+
+
+    public static void addEdge(GraphDescriptor graph, char sourceLabel, char targetLabel) {
+        validateGraphNotEmpty(graph, "Граф пуст");
+
+        GraphNode sourceVertex = validateAndGetVertex(graph, sourceLabel);
+        GraphNode targetVertex = validateAndGetVertex(graph, targetLabel);
+
+
+        if (findEdge(graph, sourceLabel, targetLabel)) {
+            throw new IllegalArgumentException("Ребро " + sourceLabel + " -> " + targetLabel + " уже существует");
+        }
+        EdgeNode newEdge = new EdgeNode(targetVertex);
+
+        newEdge.setNextEdge(sourceVertex.getFirstEdge());
+        sourceVertex.setFirstEdge(newEdge);
     }
 
 

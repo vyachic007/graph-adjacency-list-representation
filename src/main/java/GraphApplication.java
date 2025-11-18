@@ -38,10 +38,11 @@ public class GraphApplication {
         while (running) {
             System.out.println("\n1. Добавить вершину");
             System.out.println("2. Удалить вершину");
-            System.out.println("3. Найти ребро");
-            System.out.println("4. Вывести граф");
-            System.out.println("5. Подробная информация о графе");
-            System.out.println("6. Выход");
+            System.out.println("3. Добавить ребро");
+            System.out.println("4. Найти ребро");
+            System.out.println("5. Вывести граф");
+            System.out.println("6. Подробная информация о графе");
+            System.out.println("7. Выход");
             System.out.print("Выбор: ");
 
             String choice = scanner.nextLine().trim();
@@ -54,15 +55,18 @@ public class GraphApplication {
                     deleteVertex();
                     break;
                 case "3":
-                    findEdge();
+                    addEdge();
                     break;
                 case "4":
-                    GraphOperations.printGraph(graph);
+                    findEdge();
                     break;
                 case "5":
-                    GraphOperations.printGraphDetails(graph);
+                    GraphOperations.printGraph(graph);
                     break;
                 case "6":
+                    GraphOperations.printGraphDetails(graph);
+                    break;
+                case "7":
                     running = false;
                     break;
                 default:
@@ -70,8 +74,6 @@ public class GraphApplication {
             }
         }
     }
-
-
 
     private static void addVertex() {
         System.out.print("Введите букву вершины: ");
@@ -113,8 +115,6 @@ public class GraphApplication {
         }
     }
 
-
-
     private static void deleteVertex() {
         System.out.print("Введите букву вершины: ");
         String input = scanner.nextLine().trim().toUpperCase();
@@ -137,6 +137,32 @@ public class GraphApplication {
             } catch (IllegalArgumentException e) {
                 System.out.println("Ошибка: " + e.getMessage() + "\n");
             }
+        }
+    }
+
+    private static void addEdge() {
+        System.out.print("Исходная вершина (откуда): ");
+        String source = scanner.nextLine().trim().toUpperCase();
+
+        if (source.length() != 1 || !Character.isLetter(source.charAt(0))) {
+            System.out.println("Ошибка: введите одну букву\n");
+            return;
+        }
+
+        System.out.print("Целевая вершина (куда): ");
+        String target = scanner.nextLine().trim().toUpperCase();
+
+        if (target.length() != 1 || !Character.isLetter(target.charAt(0))) {
+            System.out.println("Ошибка: введите одну букву\n");
+            return;
+        }
+
+        try {
+            GraphOperations.addEdge(graph, source.charAt(0), target.charAt(0));
+            System.out.println("Ребро " + source + " -> " + target + " добавлено\n");
+            GraphOperations.printGraph(graph);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage() + "\n");
         }
     }
 
